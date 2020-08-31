@@ -83,7 +83,7 @@ def MagWarp(img, v):
     return img * img.new_tensor(y_mult)
 
 def TimeWarp(img, v):
-     "Applies time warping to the x-axis of a batch based on a smooth random curve"
+    "Applies time warping to the x-axis of a batch based on a smooth random curve"
     f=CubicSpline(np.arange(img.shape[-1]), img.cpu(), axis=-1)
     return img.new_tensor(f(random_cum_curve_generator(img, magnitude=v)))
 
@@ -134,7 +134,7 @@ def RandomTimeStep(img, v):
     return output
 
 def Blur(img, v):
-     "Blurs a sequence applying a filter of type [1, 0..., 1]"
+    "Blurs a sequence applying a filter of type [1, 0..., 1]"
     if v == 3:  filterargs = np.array([1, 0, 1])
     else:
         magnitude = tuple((3, 3 + int(v * 4)))
@@ -146,7 +146,7 @@ def Blur(img, v):
     return output
 
 def Smooth(img, v):
-     "Smoothens a sequence applying a filter of type [1, 5..., 1]"
+    "Smoothens a sequence applying a filter of type [1, 5..., 1]"
     if v == 3:  filterargs = np.array([1, 5, 1])
     else:
         magnitude = tuple((3, 3 + int(v * 4)))
@@ -158,7 +158,7 @@ def Smooth(img, v):
     return output
 
 def Denoise(img, v, thr= None):
-     "Denoises a sequence applying a wavelet decomposition method"
+    "Denoises a sequence applying a wavelet decomposition method"
     seq_len = img.shape[-1]
     # Decompose to get the wavelet coefficients
     coeff = pywt.wavedec(img.cpu(), wavelet = 'db4' , mode='per')
@@ -196,7 +196,7 @@ def LookBack(img, v):
     return output
     
 def VarOut(img, v):
-     "Set the value of a random number of variables to zero"
+    "Set the value of a random number of variables to zero"
     if v <= 0: return o
     in_vars = img.shape[-2]
     if in_vars == 1: return img
